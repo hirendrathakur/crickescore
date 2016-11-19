@@ -13,4 +13,5 @@ setup(
 		scripts = ['bin/instantcricket'],
 		install_requires = ['bs4'],
 		classifiers = [],
+		include_package_data=True
 		)

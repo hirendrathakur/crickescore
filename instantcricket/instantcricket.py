@@ -31,14 +31,18 @@ class CricketScore():
 				count+=1
 			for key,val in live_matches_dict.iteritems():
 				print key,":",val["title"]
+
 			match_num = int(raw_input("Enter the match number for live notifications:  "))
 			self.url = self.base_url+live_matches_dict[match_num]["href"]
 			try:
 				self.start_process(live_matches_dict[match_num]["title"])
 			except KeyboardInterrupt:
 				print "Quitting..."
+			except:
+				print "Reconnecting..."
+				self.start_process(live_matches_dict[match_num]["title"])
 		except:
-			print "Please enter correct choice"
+			print "Error, please retry."
 
 	def get_score(self):
 		html_obj = urllib.urlopen(self.url)
@@ -71,7 +75,7 @@ class CricketScore():
 					self.image_path = base_dir+"/out.png"
 
 				subprocess.Popen(['notify-send','-i',self.image_path,title,current_score])
-				time.sleep(5)
+			time.sleep(10)
 
 if __name__ == '__main__':
 	try:
